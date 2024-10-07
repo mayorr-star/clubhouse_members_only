@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nana's Clubhouse</title>
+    </head>
+    <body>
+        <%- include('./partials/nav') %>
+        <header>
+            <h1>Welcome to Nana's Clubhouse</h1>
+            <% if (!userlogin) { %>
+                <a href="/sign up">Don't have an account? Sign up</a>
+           <% } %>
+        </header>
+        <main>
+            <div class="messages_wrapper">
+                <section class="messages">
+                    <% messages.forEach(message => { %>
+                        <article class="message">
+                            <p><%= message.title %></p>
+                            <p><%= message.message %></p>
+                            <div>
+                                <span><%= message.firstname + message.lastname %></span>
+                                <span><%= message.data %></span>
+                            </div>
+                        </article>
+                    <% }) %>
+                </section>
+            </div>
+        </main>
+        <%- include('partials/footer') %>
+    </body>
+</html>
