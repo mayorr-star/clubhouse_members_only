@@ -9,15 +9,15 @@
     <%- include('partials/nav'); %>
     <header>
       <h1>Sign in to your account</h1>
-      <p>Or <a href="/sign-up">sign up for a new account</a></p>
+      <p>Or <a href="/users/sign-up">sign up for a new account</a></p>
     </header>
     <main>
       <div class="signin_wrapper">
         <%- include('partials/errors'); %>
-        <form action="/sign-in" method="post">
+        <form action="/users/sign-in" method="post">
           <div class="input_control">
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email" />
+            <input type="email" name="username" id="email" />
           </div>
           <div class="input_control">
             <label for="password">Password:</label>
