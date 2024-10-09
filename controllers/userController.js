@@ -1,5 +1,10 @@
 const { body, validationResult } = require("express-validator");
+const asyncHandler = require("express-async-handler");
+const getYear = require("../utilis/year");
+const db = require("../db/queries");
 const { generatePassword } = require("../utilis/password/genPassword");
+
+const year = getYear();
 
 const validateUser = [
   body("firstName")
@@ -44,9 +49,10 @@ const createUser = [
     const { firstName, lastName, email, password } = req.body;
     const saltHash = generatePassword(password);
     await db.insertNewUser(firstName, lastName, email, saltHash);
-    res.redirect("/");
+    res.redirect("/users/sign-in");
   }),
 ];
+
 
 const getEntryPage = asyncHandler((req, res) => {
   res.render("join", { year: year, userlogin: false, admin: false });
@@ -60,4 +66,4 @@ const getSignInForm = asyncHandler((req, res) => {
   res.render("signInForm", { year: year, userlogin: false, admin: false });
 });
 
-module.exports = { createUser };
+module.exports = { getEntryPage, getSignInForm, getSignUpForm, createUser };
