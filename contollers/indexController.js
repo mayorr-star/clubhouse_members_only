@@ -10,6 +10,10 @@ const getSignUpForm = asyncHandler((req, res) => {
   res.render("signupForm", { year: year, userlogin: false, admin: false });
 });
 
+const getSignInForm = asyncHandler((req, res) => {
+  res.render('signInForm', { year: year, userlogin: false, admin: false })
+})
+
 const validateUser = [
   body("firstName")
     .trim()
@@ -43,4 +47,4 @@ const createUser = [
 ]
 
 
-module.exports = { getSignUpForm, createUser };
+module.exports = { getSignUpForm, getSignInForm, createUser };
