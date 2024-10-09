@@ -1,8 +1,10 @@
 const express = require("express");
-const indexRouter = require("./routes/indexRouter");
-const path = require("path");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
+const passport = require("passport");
+const path = require("path");
+const indexRouter = require("./routes/indexRouter");
+const userRouter = require('./routes/usersRouter');
 const pool = require("./db/pool");
 
 require("dotenv").config();
@@ -16,9 +18,6 @@ const seesionStore = new pgSession({
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     store: seesionStore,
@@ -28,7 +27,17 @@ app.use(
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
   })
 );
+app.use(passport.session());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  console.log(req.session);
+  console.log(req.user);
+  next()
+})
 
+app.use('/users', userRouter);
 app.use("/", indexRouter);
 
 app.listen(PORT, "0.0.0.0", () =>
