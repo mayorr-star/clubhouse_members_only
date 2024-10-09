@@ -1,12 +1,10 @@
 const { Router } = require("express");
-const messagesController = require("../contollers/messagesController");
-const indexController = require("../contollers/indexController");
+const passport = require("passport");
+const messagesController = require("../controllers/messagesController");
+const indexController = require("../controllers/indexController");
 
 const router = Router();
 
 router.get("/", messagesController.getAllMessages);
-router.get("/sign-up", indexController.getSignUpForm);
-router.post("/sign-up", indexController.createUser);
-router.get("/sign-in", indexController.getSignInForm);
 
 module.exports = router;
