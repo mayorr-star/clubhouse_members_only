@@ -1,44 +1,43 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy();
-const { getUserByEmail, getUserById } = require("../db/queries");
-const { verifyPassword } = require('../utilis/password/genPassword');
+const LocalStrategy = require("passport-local");
+const db = require("../db/queries");
+const { verifyPassword } = require("../utilis/password/genPassword");
 
-const customFields = {
-  usernameField: "email",
-  passwordField: "password",
-};
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const result = await db.getUserByEmail(username);
+      const user = result[0];
 
-const verifyCallback = (username, password, cb) => {
-  try {
-    const user = getUserByEmail(username)[0];
+      if (!user) {
+        return done(null, false, {
+          message: "Incorrect username or password.",
+        });
+      }
 
-    if (!user) {
-      return cb(null, false, { message: "Incorrect username or password." });
+      const isPasswordValid = verifyPassword(password, user.password);
+
+      if (!isPasswordValid) {
+        return done(null, false, {
+          message: "Incorrect username or password.",
+        });
+      } else {
+        return done(null, user);
+      }
+    } catch (err) {
+      return done(err);
     }
-
-    const isPasswordValid = verifyPassword(password, hash, salt);
-    
-    if (!isPasswordValid) {
-      return cb(null, false, { message: "Incorrect username or password." });
-    } else {
-      return cb(null, user);
-    }
-  } catch (err) {
-    return cb(err);
-  }
-};
-
-const strategy = new LocalStrategy(customFields, verifyCallback);
-
-passport.use(strategy);
+  })
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (userId, done) => {
   try {
-    const user = getUserById(id)[0];
+    const result = await db.getUserById(userId);
+    const user = result[0];
 
     done(null, user);
   } catch (err) {
