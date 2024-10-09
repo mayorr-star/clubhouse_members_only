@@ -7,4 +7,23 @@ const getAllMessages = async () => {
   return rows;
 };
 
-module.exports = { getAllMessages };
+const getUserByEmail = async (email) => {
+  const { rows } = await pool.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
+  return rows;
+};
+
+const getUserById = async (id) => {
+  const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  return rows;
+};
+
+const insertNewUser = async (firstName, lastName, email, password) => {
+  await pool.query(
+    "INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2, $3, $4)",
+    [firstName, lastName, email, password]
+  );
+};
+
+module.exports = { getAllMessages, getUserByEmail, getUserById, insertNewUser };
