@@ -24,6 +24,30 @@ const insertNewUser = async (firstName, lastName, email, password) => {
     "INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2, $3, $4)",
     [firstName, lastName, email, password]
   );
+  return;
 };
 
-module.exports = { getAllMessages, getUserByEmail, getUserById, insertNewUser };
+const insertNewMessage = async (message, title, date, userId) => {
+  await pool.query(
+    "INSERT INTO messages (message, title, date, user_id) VALUES ($1, $2, $3, $4)",
+    [message, title, date, userId]
+  );
+  return;
+};
+
+const updateMembershipStatus = async (value, userId) => {
+  await pool.query(
+    "UPDATE ONLY users SET membership_status = $1 WHERE id = $2",
+    [value, userId]
+  );
+  return;
+};
+
+module.exports = {
+  getAllMessages,
+  getUserByEmail,
+  getUserById,
+  insertNewUser,
+  insertNewMessage,
+  updateMembershipStatus,
+};
