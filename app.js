@@ -5,6 +5,7 @@ const passport = require("passport");
 const path = require("path");
 const indexRouter = require("./routes/indexRouter");
 const userRouter = require('./routes/usersRouter');
+const messageRouter = require('./routes/messageRouter');
 const pool = require("./db/pool");
 
 require("dotenv").config();
@@ -31,13 +32,9 @@ app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use((req, res, next) => {
-  console.log(req.session);
-  console.log(req.user);
-  next()
-})
 
 app.use('/users', userRouter);
+app.use('/messages', messageRouter);
 app.use("/", indexRouter);
 
 app.listen(PORT, "0.0.0.0", () =>
