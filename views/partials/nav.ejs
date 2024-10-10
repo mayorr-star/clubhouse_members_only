@@ -1,18 +1,36 @@
 <nav class="navbar">
   <p>Nana's Clubhouse</p>
   <ul class="nav_links">
-    <li><a href="/">Home</a></li>
-    <li>
-        <a href="/users/sign-in">
-            <button>Sign in</button>
-        </a>
-    </li>
-    <li>
-        <a href="/users/sign-up">
-            <button>Sign up</button>
-        </a>
-    </li>
-    <% if (userlogin && admin) { %>
+      <li><a href="/">Home</a></li>
+      <% if (!user) { %>
+        <li>
+            <a href="/users/sign-in">
+                <button>Sign in</button>
+            </a>
+        </li>
+        <li>
+            <a href="/users/sign-up">
+                <button>Sign up</button>
+            </a>
+        </li>
+    <% } else { %>
+        <li>
+            <a href="/messages">
+                messages
+            </a>
+        </li>
+        <li>
+            <a href="/users/sign-out">
+                <button>Sign out</button>
+            </a>
+        </li>
+        <li>
+            <a href="/messages/add-new-message">
+                <button>Add message</button>
+            </a>
+        </li>
+    <% } %>
+    <% if (member && !admin) { %>
         <li>
             <a href="/users/admin">
                 <button>Be an Admin</button>
