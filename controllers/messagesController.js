@@ -1,17 +1,58 @@
+const { validationResult, body } = require("express-validator");
 const db = require("../db/queries");
-const getYear = require("../utilis/year");
-const asyncHandler = require('express-async-handler');
+const { getYear, getDate, getTime } = require("../utilis/year");
+const asyncHandler = require("express-async-handler");
 
 const year = getYear();
 
 const getAllMessages = asyncHandler(async (req, res) => {
   const messages = await db.getAllMessages();
-  res.render("index", {
+  res.render("messages", {
     messages: messages,
-    userlogin: false,
+    user: Boolean(req.user),
     admin: false,
     year: year,
+    member: req.user.membership_status,
+    firstName: req.user.firstname
   });
 });
 
-module.exports = { getAllMessages };
+const renderMessageForm = (req, res) => {
+  res.render("addMessageForm", {
+    user: Boolean(req.user),
+    admin: false,
+    year: year,
+    member: req.user.membership_status,
+  });
+};
+
+const validateMessageInfo = [
+  body("title")
+    .trim()
+    .notEmpty()
+    .withMessage("Message title is required")
+    .escape(),
+  body("message").trim().notEmpty().withMessage("Message is required").escape(),
+];
+
+const createNewMessage = [
+  validateMessageInfo,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("addMessageForm", {
+        errors: errors.array(),
+        year: year,
+        user: req.user,
+        admin: req.user.admin,
+        member: req.user.membership_status,
+      });
+    }
+    const { title, message } = req.body;
+    const dateTime = `${getDate()} ${getTime()}`;
+    await db.insertNewMessage(message, title, dateTime, req.user.id);
+    res.redirect('/messages')
+  }),
+];
+
+module.exports = { getAllMessages, renderMessageForm, createNewMessage };
