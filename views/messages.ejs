@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts</title>
+  </head>
+  <body>
+    <%- include('partials/nav'); %>
+    <header>
+      <h1>Welcome <%= firstName %></h1>
+      <% if (!member) { %>
+        <p>
+          Not a member? <a href="/users/become-a-member">Join our exclusive clubhouse</a>
+        </p>
+      <% } %>
+    </header>
+    <main>
+      <div class="messages_wrapper">
+        <section class="messages">
+          <% messages.forEach(message => { %>
+          <article class="message">
+            <p><%= message.title %></p>
+            <p><%= message.message %></p>
+            <% if (member) { %>
+              <div>
+                <span><%= message.firstname + " " + message.lastname %></span>
+                <span><%= message.date %></span>
+              </div>
+           <% } %>
+          </article>
+          <% }) %>
+        </section>
+      </div>
+    </main>
+    <%- include('partials/footer'); %>
+  </body>
+</html>
