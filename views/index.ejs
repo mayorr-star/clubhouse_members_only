@@ -9,7 +9,7 @@
         <%- include('./partials/nav') %>
         <header>
             <h1>Welcome to Nana's Clubhouse</h1>
-            <% if (!userlogin) { %>
+            <% if (!user) { %>
                 <a href="/users/sign-up">Don't have an account? Sign up</a>
            <% } %>
         </header>
