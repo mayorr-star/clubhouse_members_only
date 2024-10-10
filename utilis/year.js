@@ -1,2 +1,5 @@
 const getYear = () => new Date().getFullYear();
-module.exports = getYear;
+const getDate = () => new Date().toLocaleDateString();
+const getTime = () => new Date().toLocaleTimeString()
+
+module.exports = { getYear, getDate, getTime };
