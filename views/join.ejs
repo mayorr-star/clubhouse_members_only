@@ -12,7 +12,8 @@
             <p>Enter secret passcode to become a member of our exclusive Clubhouse</p>
         </header>
         <main>
-            <form action="" method="post">
+            <%- include('partials/errors'); %>
+            <form action="/users/member" method="post">
                 <label for="password">Secret passcode</label>
                 <input type="password" name="password" id="password">
                 <button type="submit" class="input_btn join">Join</button>
