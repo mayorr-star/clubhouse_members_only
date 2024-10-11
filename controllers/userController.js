@@ -146,14 +146,7 @@ const updateAdminStatus = [
     }
     const messages = await db.getAllMessages();
     await db.updateAdminStatus("TRUE", req.user.id);
-    res.render("messages", {
-      year: year,
-      admin: req.user.admin,
-      user: Boolean(req.user),
-      member: req.user.membership_status,
-      firstName: req.user.firstname,
-      messages: messages
-    });
+    res.redirect("/messages");
   }),
 ];
 
