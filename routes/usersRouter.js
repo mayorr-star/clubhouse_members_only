@@ -15,6 +15,8 @@ router.get('/sign-out', (req, res) => {
     req.logout(() => res.redirect('/users/sign-in'));
 });
 router.get("/become-a-member", userController.getEntryPage);
-router.post('/member', userController.changeMembershipStatus);
+router.post('/member', userController.updateMembershipStatus);
+router.get('/become-an-admin', userController.getAdminForm);
+router.post('/admin', userController.updateAdminStatus);
 
 module.exports = router;
