@@ -1,0 +1,29 @@
+footer {
+  padding: 20px 30px;
+  color: white;
+  background-color: #0039a6;;
+}
+
+footer > .main_content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.footer_links ul{
+    display: flex;
+    gap: 12px;
+}
+
+li a{
+    text-decoration: none;
+    color: white;
+}
+
+li{
+    list-style-type: none;
+}
+
+.copyright{
+    margin-top: 15px;
+}
