@@ -10,7 +10,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
   res.render("messages", {
     messages: messages,
     user: Boolean(req.user),
-    admin: false,
+    admin: req.user.admin,
     year: year,
     member: req.user.membership_status,
     firstName: req.user.firstname
@@ -20,7 +20,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
 const renderMessageForm = (req, res) => {
   res.render("addMessageForm", {
     user: Boolean(req.user),
-    admin: false,
+    admin: req.user.admin,
     year: year,
     member: req.user.membership_status,
   });
@@ -55,4 +55,10 @@ const createNewMessage = [
   }),
 ];
 
-module.exports = { getAllMessages, renderMessageForm, createNewMessage };
+const deleteMessage = asyncHandler(async (req, res) => {
+  const { messageId } = req.params;
+  await db.deleteMessage(messageId);
+  res.redirect("/messages");
+});
+
+module.exports = { getAllMessages, renderMessageForm, createNewMessage, deleteMessage };
