@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 const getAllMessages = async () => {
   const { rows } = await pool.query(
-    "SELECT messages.title, messages.message, messages.date, users.firstname, users.lastname FROM messages INNER JOIN users ON messages.user_id = users.id"
+    "SELECT messages.id, messages.title, messages.message, messages.date, users.firstname, users.lastname FROM messages INNER JOIN users ON messages.user_id = users.id"
   );
   return rows;
 };
@@ -51,6 +51,11 @@ const updateAdminStatus = async (value, userId) => {
   return;
 };
 
+const deleteMessage = async (messsageId) => {
+  await pool.query('DELETE FROM ONLY messages WHERE id = $1', [messsageId]);
+  return;
+}
+
 module.exports = {
   getAllMessages,
   getUserByEmail,
@@ -58,5 +63,6 @@ module.exports = {
   insertNewUser,
   insertNewMessage,
   updateMembershipStatus,
-  updateAdminStatus
+  updateAdminStatus,
+  deleteMessage
 };
