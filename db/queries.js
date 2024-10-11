@@ -43,6 +43,14 @@ const updateMembershipStatus = async (value, userId) => {
   return;
 };
 
+const updateAdminStatus = async (value, userId) => {
+  await pool.query(
+    "UPDATE ONLY users SET admin = $1 WHERE id = $2",
+    [value, userId]
+  );
+  return;
+};
+
 module.exports = {
   getAllMessages,
   getUserByEmail,
@@ -50,4 +58,5 @@ module.exports = {
   insertNewUser,
   insertNewMessage,
   updateMembershipStatus,
+  updateAdminStatus
 };
