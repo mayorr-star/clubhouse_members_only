@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Become an admin</title>
+    </head>
+    <body>
+        <%- include('partials/nav'); %>
+        <header>
+            <h1>Be an admin and enjoy extra features!</h1>
+        </header>
+        <main>
+            <%- include('partials/errors'); %>
+            <form action="/users/admin" method="post">
+                <label for="password">Secret passcode</label>
+                <input type="password" name="password" id="password">
+                <button type="submit" class="input_btn admin">Submit</button>
+            </form>
+        </main>
+        <%- include('partials/footer'); %>
+    </body>
+</html>
