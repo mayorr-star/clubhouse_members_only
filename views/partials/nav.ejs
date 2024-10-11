@@ -5,35 +5,35 @@
       <% if (!user) { %>
         <li>
             <a href="/users/sign-in">
-                <button>Sign in</button>
+                <button class="nav-btn">Sign in</button>
             </a>
         </li>
         <li>
             <a href="/users/sign-up">
-                <button>Sign up</button>
+                <button class="nav-btn">Sign up</button>
             </a>
         </li>
     <% } else { %>
         <li>
             <a href="/messages">
-                messages
+                Messages
             </a>
         </li>
         <li>
             <a href="/users/sign-out">
-                <button>Sign out</button>
+                <button class="nav-btn">Sign out</button>
             </a>
         </li>
         <li>
             <a href="/messages/add-new-message">
-                <button>Add message</button>
+                <button class="nav-btn">Add message</button>
             </a>
         </li>
     <% } %>
     <% if (member && !admin) { %>
         <li>
             <a href="/users/become-an-admin">
-                <button>Be an Admin</button>
+                <button class="nav-btn">Be an Admin</button>
             </a>
         </li>
     <% } %>
