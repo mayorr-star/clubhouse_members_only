@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
-const {getYear} = require("../utilis/year");
+const { getYear } = require("../utilis/year");
 const db = require("../db/queries");
 const { generatePassword } = require("../utilis/password/genPassword");
 require("dotenv").config();
@@ -43,7 +43,7 @@ const createUser = [
       return res.status(400).render("signupForm", {
         errors: errors.array(),
         year: year,
-        userlogin: false,
+        user: Boolean(req.user),
         admin: false,
       });
     }
@@ -55,40 +55,105 @@ const createUser = [
 ];
 
 const getEntryPage = asyncHandler((req, res) => {
-  res.render("join", { year: year, userlogin: false, admin: false });
+  res.render("join", { year: year, user: Boolean(req.user), admin: false });
 });
 
 const getSignUpForm = asyncHandler((req, res) => {
-  res.render("signupForm", { year: year, admin: false, user: Boolean(req.user), member: false });
+  res.render("signupForm", {
+    year: year,
+    admin: false,
+    user: Boolean(req.user),
+    member: false,
+  });
 });
 
 const getSignInForm = asyncHandler((req, res) => {
-  res.render("signInForm", { year: year, admin: false, user: Boolean(req.user), member: false });
+  res.render("signInForm", {
+    year: year,
+    admin: false,
+    user: Boolean(req.user),
+    member: false,
+  });
 });
 
-const validateSecretCode = [
+const validateMemberCode = [
   body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Membership code is required")
     .custom((value) => {
       return value === process.env.MEMBERSHIP_SECRET_CODE;
     })
     .withMessage("Sorry incorrect passcode"),
 ];
 
-const changeMembershipStatus = [
-  validateSecretCode,
+const validateAdminCode = [
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Admin password is required")
+    .custom((value) => {
+      return value === process.env.ADMIN_SECRET_CODE;
+    })
+    .withMessage("Sorry incorrect passcode"),
+];
+
+const updateMembershipStatus = [
+  validateMemberCode,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).render("join", {
         errors: errors.array(),
         year: year,
-        userlogin: false,
-        admin: false,
-      })
-    };
-    const messages = await db.getAllMessages()
-    res.render("messages", { year: year, userlogin: false, admin: false, messages: messages });
-    await db.updateMembershipStatus('TRUE', req.user.id);
+        user: Boolean(req.user),
+        admin: req.user.admin,
+      });
+    }
+    const messages = await db.getAllMessages();
+    await db.updateMembershipStatus("TRUE", req.user.id);
+    res.render("messages", {
+      year: year,
+      user: Boolean(req.user),
+      admin: req.user.admin,
+      messages: messages,
+      member: req.user.membership_status,
+    });
+  }),
+];
+
+const getAdminForm = asyncHandler(async (req, res) => {
+  res.render("adminForm", {
+    year: year,
+    admin: req.user.admin,
+    user: Boolean(req.user),
+    member: req.user.membership_status,
+  });
+});
+
+const updateAdminStatus = [
+  validateAdminCode,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("adminForm", {
+        errors: errors.array(),
+        year: year,
+        user: Boolean(req.user),
+        admin: req.user.admin,
+        member: req.user.membership_status,
+      });
+    }
+    const messages = await db.getAllMessages();
+    await db.updateAdminStatus("TRUE", req.user.id);
+    res.render("messages", {
+      year: year,
+      admin: req.user.admin,
+      user: Boolean(req.user),
+      member: req.user.membership_status,
+      firstName: req.user.firstname,
+      messages: messages
+    });
   }),
 ];
 
@@ -96,6 +161,8 @@ module.exports = {
   getEntryPage,
   getSignInForm,
   getSignUpForm,
+  getAdminForm,
   createUser,
-  changeMembershipStatus,
+  updateMembershipStatus,
+  updateAdminStatus,
 };
