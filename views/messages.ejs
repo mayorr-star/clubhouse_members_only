@@ -27,6 +27,11 @@
                 <span><%= message.firstname + " " + message.lastname %></span>
                 <span><%= message.date %></span>
               </div>
+              <% if (admin) { %>
+                <a href="/users/delete">
+                  <button type="button">Delete</button>
+                </a>
+              <% } %>
            <% } %>
           </article>
           <% }) %>
