@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nana's Clubhouse</title>
-        <link rel="stylesheet" href="/styles/nav.css">
-        <link rel="stylesheet" href="styles/global.css">
-        <link rel="stylesheet" href="styles/footer.css">
-    </head>
-    <body>
-        <%- include('./partials/nav') %>
-        <header>
-            <h1>Welcome to Nana's Clubhouse</h1>
-            <% if (!user) { %>
-                <a href="/users/sign-up">Don't have an account? Sign up</a>
-           <% } %>
-        </header>
-        <main>
-        </main>
-        <%- include('partials/footer') %>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nana's Clubhouse</title>
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="/styles/nav.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <header>
+      <h1>Welcome to Nana's Clubhouse</h1>
+      <% if (!user) { %>
+      <a href="/users/sign-up">Don't have an account? Sign up</a>
+      <% } %>
+    </header>
+    <main>
+      <div class="content">
+        <p>
+          This is Nana's Exclusive clubhouse, where you log in to share your
+          thoughts anonymously and connect with others. Post messages without
+          revealing your identity and see what others have to say — all in a
+          safe and welcoming space.
+        </p>
+        <a href="/users/sign-up">
+          <button class="join_now">Join Now</button>
+        </a>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
 </html>
