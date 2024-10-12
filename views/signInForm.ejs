@@ -14,6 +14,9 @@
     <main>
       <div class="signin_wrapper">
         <%- include('partials/errors'); %>
+        <% if (msg) { %>
+          <div class="err"><%= msg %></div>
+        <% } %>
         <form action="/users/sign-in" method="post">
           <div class="input_control">
             <label for="email">Email:</label>
