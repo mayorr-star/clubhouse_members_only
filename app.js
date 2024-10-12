@@ -7,6 +7,7 @@ const indexRouter = require("./routes/indexRouter");
 const userRouter = require('./routes/usersRouter');
 const messageRouter = require('./routes/messageRouter');
 const pool = require("./db/pool");
+const handleError  = require('./utilis/errorhandling/middlewares/handleNotFoundError');
 
 require("dotenv").config();
 
@@ -36,6 +37,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/users', userRouter);
 app.use('/messages', messageRouter);
 app.use("/", indexRouter);
+
+app.use(handleError.handleNotFoundError);
+app.use(handleError.handleServerError);
 
 app.listen(PORT, "0.0.0.0", () =>
   console.log(`Server running on port ${PORT}`)
