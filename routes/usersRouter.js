@@ -9,7 +9,8 @@ router.post("/sign-up", userController.createUser);
 router.get("/sign-in", userController.getSignInForm);
 router.post('/sign-in', passport.authenticate('local', {
     successRedirect: '/messages',
-    failureRedirect: '/sign-in'
+    failureRedirect: '/users/sign-in',
+    failureMessage: 'Incorrect email or password'
 }));
 router.get('/sign-out', (req, res) => {
     req.logout(() => res.redirect('/users/sign-in'));
