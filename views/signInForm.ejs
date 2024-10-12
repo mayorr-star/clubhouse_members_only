@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/nav.css" />
+    <link rel="stylesheet" href="/styles/signin.css" />
+    <link rel="stylesheet" href="/styles/footer.css" />
     <title>Sign In</title>
   </head>
   <body>
@@ -13,21 +17,27 @@
     </header>
     <main>
       <div class="signin_wrapper">
-        <%- include('partials/errors'); %>
-        <% if (msg) { %>
-          <div class="err"><%= msg %></div>
-        <% } %>
-        <form action="/users/sign-in" method="post">
-          <div class="input_control">
-            <label for="email">Email:</label>
-            <input type="email" name="username" id="email" />
-          </div>
-          <div class="input_control">
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" />
-          </div>
-          <button type="submit" class="signin">Sign In</button>
-        </form>
+        <div class="content">
+          <%- include('partials/errors'); %>
+          <section class="sign_in">
+            <div class="sign_in_form">
+              <% if (msg) { %>
+              <div class="err"><%= msg %></div>
+              <% } %>
+              <form action="/users/sign-in" method="post">
+                <div class="input_control">
+                  <label for="email">Email:</label>
+                  <input type="email" name="username" id="email" />
+                </div>
+                <div class="input_control">
+                  <label for="password">Password:</label>
+                  <input type="password" name="password" id="password" />
+                </div>
+                <button type="submit" class="signin_btn">Sign In</button>
+              </form>
+            </div>
+          </section>
+        </div>
       </div>
     </main>
     <%- include('partials/footer'); %>
