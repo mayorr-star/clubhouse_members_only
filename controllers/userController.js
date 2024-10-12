@@ -73,6 +73,7 @@ const getSignInForm = asyncHandler((req, res) => {
     admin: false,
     user: Boolean(req.user),
     member: false,
+    msg: 'Incorrect email or password'
   });
 });
 
