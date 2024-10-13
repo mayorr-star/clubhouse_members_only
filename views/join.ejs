@@ -3,6 +3,10 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/nav.css">
+        <link rel="stylesheet" href="/styles/join.css">
+        <link rel="stylesheet" href="/styles/footer.css">
         <title>Join Club</title>
     </head>
     <body>
@@ -12,12 +16,14 @@
             <p>Enter secret passcode to become a member of our exclusive Clubhouse</p>
         </header>
         <main>
-            <%- include('partials/errors'); %>
-            <form action="/users/member" method="post">
-                <label for="password">Secret passcode</label>
-                <input type="password" name="password" id="password">
-                <button type="submit" class="input_btn join">Join</button>
-            </form>
+            <div class="content">
+                <%- include('partials/errors'); %>
+                <form action="/users/member" method="post">
+                    <label for="password">Secret passcode</label>
+                    <input type="password" name="password" id="password">
+                    <button type="submit" class="input_btn join">Join</button>
+                </form>
+            </div>
         </main>
         <%- include('partials/footer'); %>
     </body>

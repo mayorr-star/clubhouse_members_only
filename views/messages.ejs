@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/messages.css">
+    <link rel="stylesheet" href="/styles/footer.css">
     <title>Posts</title>
   </head>
   <body>
@@ -21,11 +25,11 @@
         <section class="messages">
           <% messages.forEach(message => { %>
           <article class="message">
-            <p><%= message.title %></p>
-            <p><%= message.message %></p>
+            <p class="msg_title"><%= message.title %></p>
+            <p class="msg_text"><%= message.message %></p>
             <% if (member) { %>
-            <div>
-              <span><%= message.firstname + " " + message.lastname %></span>
+            <div class="pers_info">
+              <span><%= message.firstname + " " + message.lastname %>, </span>
               <span><%= message.date %></span>
             </div>
             <% if (admin) { %>
