@@ -1,0 +1,61 @@
+header{
+    text-align: center;
+    padding: 40px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+form > .input_control{
+    margin: 0 0 30px 0;
+}
+
+form > .input_control > label{
+    display: block;
+    margin-bottom: 4px;
+}
+
+form > .input_control > input{
+    padding: 12px 15px;
+    border-radius: 7px;
+    outline: none;
+    width: 100%;
+    border: 1px solid #dcdcdc;
+}
+
+form > .input_control > input:focus{
+    outline: 1px solid #0039a6;
+}
+
+div.new_message_wrapper{
+    margin: 0 auto              ;
+    max-width: 400px;
+    background-color: #FAF9F6;
+    box-shadow: 0 0 12px black;
+    border-radius: 7px;
+    padding: 50px 20px;
+}
+
+.err{
+    color: red;
+    margin-bottom: 10px;
+}
+
+button.add_post{
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background-color: #0039a6;
+    color: #FAF9F6;
+    border: 0px;
+}

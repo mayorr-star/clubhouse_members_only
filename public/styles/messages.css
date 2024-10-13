@@ -1,0 +1,54 @@
+header{
+    text-align: center;
+    padding: 40px;
+}
+
+section.messages{
+    padding: 20px;
+}
+
+article.message{
+    background-color: #FAF9F6;
+    border-radius: 7px;
+    box-shadow: 0 0 3px black;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+p.msg_title{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+svg{
+    width: 30px;
+}
+
+button{
+    background: transparent;
+    border: 0;
+    outline: none;
+    display: block;
+    margin-left: auto;
+}
+
+@keyframes shaking {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
+button:hover svg{
+    animation-name: shaking;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}

@@ -1,0 +1,52 @@
+header{
+    text-align: center;
+    padding: 40px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex: 1;
+}
+
+label{
+    display: block;
+    margin-bottom: 6px;
+}
+
+form > input{
+    padding: 12px 15px;
+    border-radius: 7px;
+    outline: none;
+    width: 100%;
+    border: 1px solid #dcdcdc;
+}
+
+form > .input:focus{
+    outline: 1px solid #0039a6;
+}
+
+.input_btn{
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background-color: #0039a6;
+    color: #FAF9F6;
+    border: 0px;
+    margin-top: 20px;
+}
+
+.err{
+    color: red;
+}
+
+div.content{
+    max-width: 500px;
+    margin: 0 auto;
+}
