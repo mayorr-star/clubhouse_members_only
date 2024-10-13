@@ -12,14 +12,12 @@ const validateUser = [
     .trim()
     .notEmpty()
     .withMessage("First name is required")
-    .isAlpha()
     .withMessage("First name must contain only alphabets")
     .escape(),
   body("lastName")
     .trim()
     .notEmpty()
     .withMessage("Last name is required")
-    .isAlpha()
     .withMessage("Last name must contain only alphabets")
     .escape(),
   body("email").isEmail().withMessage("Email is invalid").normalizeEmail(),
@@ -45,6 +43,7 @@ const createUser = [
         year: year,
         user: Boolean(req.user),
         admin: false,
+        member: false
       });
     }
     const { firstName, lastName, email, password } = req.body;
@@ -55,7 +54,7 @@ const createUser = [
 ];
 
 const getEntryPage = asyncHandler((req, res) => {
-  res.render("join", { year: year, user: Boolean(req.user), admin: false });
+  res.render("join", { year: year, user: Boolean(req.user), admin: req.user.admin, member: req.user.membership_status });
 });
 
 const getSignUpForm = asyncHandler((req, res) => {
@@ -109,6 +108,7 @@ const updateMembershipStatus = [
         year: year,
         user: Boolean(req.user),
         admin: req.user.admin,
+        member: req.user.membership_status,
       });
     }
     const messages = await db.getAllMessages();
@@ -119,6 +119,7 @@ const updateMembershipStatus = [
       admin: req.user.admin,
       messages: messages,
       member: req.user.membership_status,
+      firstName: req.user.firstname
     });
   }),
 ];
