@@ -12,18 +12,23 @@ const validateUser = [
     .trim()
     .notEmpty()
     .withMessage("First name is required")
+    .isAlpha('en-Us', {ignore: ' '})
     .withMessage("First name must contain only alphabets")
     .escape(),
   body("lastName")
     .trim()
     .notEmpty()
     .withMessage("Last name is required")
+    .isAlpha('en-Us', {ignore: ' '})
     .withMessage("Last name must contain only alphabets")
     .escape(),
   body("email").isEmail().withMessage("Email is invalid").normalizeEmail(),
-  body("password")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long"),
+  body('password')
+    .isLength({ min: 8, max: 50 }).withMessage('Password must be between 8 and 50 characters')
+    .matches(/[a-z]/).withMessage('Password must contain at least one lowercase letter')
+    .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
+    .matches(/\d/).withMessage('Password must contain at least one digit')
+    .matches(/[^\w\s]/).withMessage('Password must contain at least one special character').escape(),
   body("confirmPassword")
     .custom((value, { req }) => {
       {

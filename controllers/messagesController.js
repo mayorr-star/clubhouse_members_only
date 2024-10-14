@@ -37,9 +37,8 @@ const validateMessageInfo = [
   body("title")
     .trim()
     .notEmpty()
-    .withMessage("Message title is required")
-    .escape(),
-  body("message").trim().notEmpty().withMessage("Message is required").escape(),
+    .withMessage("Message title is required"),
+  body("message").trim().notEmpty().withMessage("Message is required")
 ];
 
 const createNewMessage = [
