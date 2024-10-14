@@ -67,12 +67,14 @@ const getSignUpForm = asyncHandler((req, res) => {
 });
 
 const getSignInForm = asyncHandler((req, res) => {
+  const err_msg = req.session.messages || [];
+  req.session.messages = [];
   res.render("signInForm", {
     year: year,
     admin: false,
     user: Boolean(req.user),
     member: false,
-    msg: 'Incorrect email or password'
+    err_msg: err_msg
   });
 });
 
