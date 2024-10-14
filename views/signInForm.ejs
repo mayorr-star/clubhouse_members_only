@@ -21,9 +21,9 @@
           <%- include('partials/errors'); %>
           <section class="sign_in">
             <div class="sign_in_form">
-              <% if (msg) { %>
-              <div class="err"><%= msg %></div>
-              <% } %>
+              <% if (err_msg) { %>
+                <div class="err"><%= err_msg %></div>
+                <% } %>
               <form action="/users/sign-in" method="post">
                 <div class="input_control">
                   <label for="email">Email:</label>
