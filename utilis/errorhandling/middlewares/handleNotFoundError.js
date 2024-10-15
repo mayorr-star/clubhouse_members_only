@@ -8,7 +8,7 @@ const handleNotFoundError = (error, req, res, next) => {
 }
 
 const handleServerError = (error, req, res, next) => {
-    console.group(error)
+    console.log(error)
     return res.status(500).json({msg: 'Internal server error'})
 }
 
