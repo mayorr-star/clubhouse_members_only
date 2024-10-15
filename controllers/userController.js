@@ -8,18 +8,8 @@ require("dotenv").config();
 const year = getYear();
 
 const validateUser = [
-  body("firstName")
-    .trim()
-    .notEmpty()
-    .withMessage("First name is required")
-    .isAlpha({ locales: ['en-US'] })    .withMessage("First name must contain only alphabets")
-    .escape(),
-  body("lastName")
-    .trim()
-    .notEmpty()
-    .withMessage("Last name is required")
-    .isAlpha({ locales: ['en-US'] })    .withMessage("Last name must contain only alphabets")
-    .escape(),
+  body('firstname').trim().custom(val => val.split(' ').length == 1 && val != '').withMessage('please fill your first name').escape(),
+  body('lastname').trim().custom(val => val.split(' ').length == 1 && val != '').withMessage('please fill your last name').escape(),
   body("email").isEmail().withMessage("Email is invalid").normalizeEmail(),
   body('password')
     .isLength({ min: 8, max: 50 }).withMessage('Password must be between 8 and 50 characters')
