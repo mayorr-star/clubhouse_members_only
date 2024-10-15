@@ -12,15 +12,13 @@ const validateUser = [
     .trim()
     .notEmpty()
     .withMessage("First name is required")
-    // .isAlpha('en-Us', {ignore: ' '})
-    .withMessage("First name must contain only alphabets")
+    .isAlpha({ locales: ['en-US'] })    .withMessage("First name must contain only alphabets")
     .escape(),
   body("lastName")
     .trim()
     .notEmpty()
     .withMessage("Last name is required")
-    // .isAlpha('en-Us', {ignore: ' '})
-    .withMessage("Last name must contain only alphabets")
+    .isAlpha({ locales: ['en-US'] })    .withMessage("Last name must contain only alphabets")
     .escape(),
   body("email").isEmail().withMessage("Email is invalid").normalizeEmail(),
   body('password')
