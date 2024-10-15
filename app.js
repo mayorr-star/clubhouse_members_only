@@ -39,7 +39,7 @@ app.use('/messages', messageRouter);
 app.use("/", indexRouter);
 
 app.use(handleError.handleNotFoundError);
-app.use(handleError.handleServerError);
+// app.use(handleError.handleServerError);
 
 app.listen(PORT, "0.0.0.0", () =>
   console.log(`Server running on port ${PORT}`)
