@@ -8,15 +8,31 @@ require("dotenv").config();
 const year = getYear();
 
 const validateUser = [
-  body('firstname').trim().custom(val => val.split(' ').length == 1 && val != '').withMessage('please fill your first name').escape(),
-  body('lastname').trim().custom(val => val.split(' ').length == 1 && val != '').withMessage('please fill your last name').escape(),
-  body("email").isEmail().withMessage("Email is invalid").normalizeEmail(),
-  body('password')
-    .isLength({ min: 8, max: 50 }).withMessage('Password must be between 8 and 50 characters')
-    .matches(/[a-z]/).withMessage('Password must contain at least one lowercase letter')
-    .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
-    .matches(/\d/).withMessage('Password must contain at least one digit')
-    .matches(/[^\w\s]/).withMessage('Password must contain at least one special character').escape(),
+  body("firstName")
+    .trim()
+    .notEmpty()
+    .isAlpha("en-US", { ignore: " " })
+    .withMessage("First name is required")
+    .escape(),
+  body("lastName")
+    .trim()
+    .notEmpty()
+    .isAlpha("en-US", { ignore: " " })
+    .withMessage("Last name is required")
+    .escape(),
+  body("email").isEmail().normalizeEmail().withMessage("Email is invalid"),
+  body("password")
+    .isLength({ min: 8, max: 50 })
+    .withMessage("Password must be between 8 and 50 characters")
+    .matches(/[a-z]/)
+    .withMessage("Password must contain at least one lowercase letter")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain at least one uppercase letter")
+    .matches(/\d/)
+    .withMessage("Password must contain at least one digit")
+    .matches(/[^\w\s]/)
+    .withMessage("Password must contain at least one special character")
+    .escape(),
   body("confirmPassword")
     .custom((value, { req }) => {
       {
@@ -36,7 +52,7 @@ const createUser = [
         year: year,
         user: Boolean(req.user),
         admin: false,
-        member: false
+        member: false,
       });
     }
     const { firstName, lastName, email, password } = req.body;
@@ -47,7 +63,12 @@ const createUser = [
 ];
 
 const getEntryPage = asyncHandler((req, res) => {
-  res.render("join", { year: year, user: Boolean(req.user), admin: req.user.admin, member: req.user.membership_status });
+  res.render("join", {
+    year: year,
+    user: Boolean(req.user),
+    admin: req.user.admin,
+    member: req.user.membership_status,
+  });
 });
 
 const getSignUpForm = asyncHandler((req, res) => {
@@ -67,7 +88,7 @@ const getSignInForm = asyncHandler((req, res) => {
     admin: false,
     user: Boolean(req.user),
     member: false,
-    err_msg: err_msg
+    err_msg: err_msg,
   });
 });
 
@@ -114,7 +135,7 @@ const updateMembershipStatus = [
       admin: req.user.admin,
       messages: messages,
       member: req.user.membership_status,
-      firstName: req.user.firstname
+      firstName: req.user.firstname,
     });
   }),
 ];
